@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "http://127.0.0.1:8000"  # Change for deployment
+API_URL = "https://agenticdocragassistant-production.up.railway.app"  # Change for deployment
 
 st.set_page_config(page_title="Agentic RAG", layout="wide")
 st.title("📄 Agentic RAG Assistant")
@@ -85,4 +85,5 @@ if query := st.chat_input("Ask anything..."):
                     st.error(f"Error: {response.text}")
                     
             except Exception as e:
+
                 st.error(f"API error: {str(e)}")
