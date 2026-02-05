@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+python-multipart
+python-dotenv
+langchain
+langchain-community
+langchain-classic
+langchain-core
+langchain-google-genai
+psycopg2-binary
+pgvector
+pypdf
+wikipedia
+duckduckgo-search
+numexpr 
+ddgs
