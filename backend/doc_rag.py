@@ -11,7 +11,7 @@ from langchain_core.tools import Tool, tool
 from langchain_classic import hub
 from langchain_classic.memory import ConversationBufferMemory
 import os
-
+import uuid
 load_dotenv()
 CONNECTION_STRING = os.getenv("DATABASE_URL")
 # Secure way to set API Key
@@ -39,11 +39,11 @@ def build_agent(pdf_paths: list):
                 model="models/text-embedding-004", # Latest and fastest model
                 google_api_key=GOOGLE_API_KEY
             )
-
+            collection_name = f"rag_docs_{uuid.uuid4().hex[:8]}"  # Unique collection name to avoid conflicts
             vectorstore = PGVector.from_documents(
                 documents=all_chunks,
                 embedding=embeddings,
-                collection_name="rag_documents_v2",
+                collection_name="collection_name",
                 connection_string=CONNECTION_STRING, # Parameter name might vary based on version
                 use_jsonb=True
             )
@@ -81,4 +81,5 @@ def build_agent(pdf_paths: list):
         verbose=True,
         max_iterations=3,
         handle_parsing_errors=True
+
     )
