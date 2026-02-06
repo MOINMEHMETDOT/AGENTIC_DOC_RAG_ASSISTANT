@@ -43,7 +43,7 @@ def build_agent(pdf_paths: list):
             vectorstore = PGVector.from_documents(
                 documents=all_chunks,
                 embedding=embeddings,
-                collection_name="collection_name",
+                collection_name=collection_name,  
                 connection_string=CONNECTION_STRING, # Parameter name might vary based on version
                 use_jsonb=True
             )
@@ -83,3 +83,4 @@ def build_agent(pdf_paths: list):
         handle_parsing_errors=True
 
     )
+
