@@ -20,7 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Global agent
+# Global agent - Initialize with basic agent (no documents)
 agent_instance = None
 
 class QueryRequest(BaseModel):
@@ -51,7 +51,7 @@ async def upload_documents(files: List[UploadFile] = File(...)):
                 tmp.write(content)
                 all_paths.append(tmp.name)
         
-        # Build agent
+        # Build agent with documents
         agent_instance = build_agent(all_paths)
         
         return {
@@ -67,8 +67,9 @@ async def upload_documents(files: List[UploadFile] = File(...)):
 def query_agent(request: QueryRequest):
     global agent_instance
     
-    #if agent_instance is None:
-        #raise HTTPException(400, "No documents uploaded. Upload first.")
+    # Initialize agent without documents if not already initialized
+    if agent_instance is None:
+        agent_instance = build_agent([])  # Empty list for no documents
     
     try:
         response = agent_instance.invoke({"input": request.question})
@@ -90,5 +91,4 @@ if __name__ == "__main__":
     import os
     # Railway PORT variable provide karta hai, agar na mile toh default 8000
     port = int(os.environ.get("PORT", 8000)) 
-
     uvicorn.run(app, host="0.0.0.0", port=port)
