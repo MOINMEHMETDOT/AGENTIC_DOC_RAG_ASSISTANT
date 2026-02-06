@@ -36,7 +36,7 @@ def build_agent(pdf_paths: list):
         if all_chunks:
             # ✅ CHANGED: Using Google Gemini Embeddings instead of HuggingFace
             embeddings = GoogleGenerativeAIEmbeddings(
-                model="models/text-embedding-004", # Latest and fastest model
+                model="gemini-embedding-001", # Latest and fastest model
                 google_api_key=GOOGLE_API_KEY
             )
             collection_name = f"rag_docs_{uuid.uuid4().hex[:8]}"  # Unique collection name to avoid conflicts
@@ -83,4 +83,5 @@ def build_agent(pdf_paths: list):
         handle_parsing_errors=True
 
     )
+
 
