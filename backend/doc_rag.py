@@ -52,7 +52,7 @@ def build_agent(pdf_paths: list):
             print(f"✅ Processed {len(pdf_paths)} PDFs with Gemini Embeddings")
 
     # LLM Setup - Updated to stable 1.5-flash
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7)
+    llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro", temperature=0.7)
     
     @tool
     def document_search(query: str) -> str:
@@ -83,5 +83,6 @@ def build_agent(pdf_paths: list):
         handle_parsing_errors=True
 
     )
+
 
 
