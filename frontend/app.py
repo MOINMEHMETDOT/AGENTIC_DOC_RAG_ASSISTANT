@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "https://agenticdocragassistant-production.up.railway.app"
+API_URL = "https://agentic-doc-rag-assistant-1.onrender.com"
 
 st.set_page_config(
     page_title="Multi-Tool AI Assistant v1.0",
