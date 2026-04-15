@@ -11,7 +11,7 @@ from langchain_core.tools import Tool, tool
 from langchain_classic import hub
 from langchain_classic.memory import ConversationBufferMemory
 import os
-import uuid
+
 load_dotenv()
 CONNECTION_STRING = os.getenv("DATABASE_URL")
 # Secure way to set API Key
@@ -39,11 +39,11 @@ def build_agent(pdf_paths: list):
                 model="gemini-embedding-001", # Latest and fastest model
                 google_api_key=GOOGLE_API_KEY
             )
-            collection_name = f"rag_docs_{uuid.uuid4().hex[:8]}"  # Unique collection name to avoid conflicts
+
             vectorstore = PGVector.from_documents(
                 documents=all_chunks,
                 embedding=embeddings,
-                collection_name=collection_name,  
+                collection_name="rag_documents_v2",
                 connection_string=CONNECTION_STRING, # Parameter name might vary based on version
                 use_jsonb=True
             )
@@ -52,7 +52,7 @@ def build_agent(pdf_paths: list):
             print(f"✅ Processed {len(pdf_paths)} PDFs with Gemini Embeddings")
 
     # LLM Setup - Updated to stable 1.5-flash
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7)
+    llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite-preview", temperature=0.7)
     
     @tool
     def document_search(query: str) -> str:
@@ -79,11 +79,6 @@ def build_agent(pdf_paths: list):
         tools=tools,
         memory=memory,
         verbose=True,
-        max_iterations=3,
+        max_iterations=10,
         handle_parsing_errors=True
-
     )
-
-
-
-
