@@ -14,3 +14,4 @@ wikipedia
 duckduckgo-search
 numexpr 
 ddgs
+passlib
