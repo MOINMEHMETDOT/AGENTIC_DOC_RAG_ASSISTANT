@@ -14,4 +14,3 @@ wikipedia
 duckduckgo-search
 numexpr 
 ddgs
-python-3.11.9
