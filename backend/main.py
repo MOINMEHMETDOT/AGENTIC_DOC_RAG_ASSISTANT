@@ -1,5 +1,10 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from passlib.context import CryptContext
+import jwt # Make sure to pip install PyJWT
+from datetime import datetime, timedelta
 from pydantic import BaseModel
 from typing import List
 import tempfile
